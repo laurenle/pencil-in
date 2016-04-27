@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <%= stylesheet_link_tag "style" %>
+</head>
 <body>
 
-<h1>Pencil In</h1>
+<h1 id="header"><%= link_to "Pencil In", root_path, method: :get %></h1>
+<span id="tagline">You can do it!</span>
 
 <%= yield %>
 

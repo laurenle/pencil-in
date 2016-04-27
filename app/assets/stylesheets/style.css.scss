@@ -1,0 +1,48 @@
+@import "fonts";
+
+$font-main: 'Open Sans';
+$font-accent: 'Lobster', cursive;
+
+$color-main: #be90d4;
+$color-accent: #d49c90;
+$color-neutral: #c1bec2;
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: $font-main;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 2.2rem;
+}
+
+h1,
+h2,
+h3 {
+  color: $color-accent;
+  font-family: $font-accent;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+  color: $color-main;
+}
+
+#header {
+  margin-bottom: 0;
+}
+
+#header a {
+  color: $color-accent;
+}
+
+#tagline {
+  font-size: 1.2rem;
+  display: block;
+  padding-bottom: 3em;
+  margin-bottom: 3em;
+  border-bottom: 1px solid $color-neutral;
+}

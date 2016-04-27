@@ -6,3 +6,7 @@ gem 'omniauth-google-oauth2'
 gem 'json'
 gem 'sqlite3'
 gem 'google-api-client', '<0.9', :require => 'google/api_client'
+
+group :assets do
+      gem 'sass-rails'
+end
