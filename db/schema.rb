@@ -11,12 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424181919) do
+ActiveRecord::Schema.define(version: 20160428041142) do
 
-  create_table "tokens", force: true do |t|
-    t.string   "access_token"
-    t.string   "refresh_token"
-    t.datetime "expires_at"
+  create_table "list_items", force: true do |t|
+    t.string   "description"
+    t.integer  "list_id"
+    t.integer  "priority"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lists", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "name"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

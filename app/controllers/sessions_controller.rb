@@ -12,5 +12,17 @@ class SessionsController < ApplicationController
       :api_method => service.calendar_list.list,
       :parameters => {},
       :headers => {'Content-Type' => 'application/json'})
+    @user = User.find_by(email: @auth["info"]["email"])
+    if @user.nil?
+      params =  { email: @auth["info"]["email"], name: @auth["info"]["first_name"]}
+      @user = User.create(params)
+    end
+    session[:user_id] = @user.id
+    redirect_to lists_url
   end
+
+  def destroy
+    reset_session
+    redirect_to root_url
+  end    
 end
