@@ -11,4 +11,14 @@ class ApplicationController < ActionController::Base
   helper_method def current_user
     @user ||= User.find(session[:user_id]) if logged_in?
   end
+
+before_filter :require_login
+
+private
+
+  def require_login
+    unless current_user
+      redirect_to login_url
+    end
+  end
 end
