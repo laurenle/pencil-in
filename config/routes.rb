@@ -1,5 +1,7 @@
 # config/routes.rb
 PencilIn::Application.routes.draw do
+  resources :tasks
+
   get 'authorize/create'
 
   get 'authorize/new'
