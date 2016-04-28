@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   end
 
   def valid_email?
-    unless @email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+    if /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i.match(@email)
       errors.add(:base, 'Please enter a valid email address.')
     end
   end
