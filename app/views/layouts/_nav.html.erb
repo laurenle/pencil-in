@@ -5,6 +5,6 @@
   <div id="nav-links">
     <a class="nav-btn" href="/">Home</a> | 
     <% if logged_in? -%><%= link_to 'Past Lists', lists_url %> | <%= link_to 'Log out', '/logout', method: :delete %>
-    <% else -%><%= link_to 'Log in', '/sessions/new' %><% end -%>
+    <% else -%><%= link_to 'Log in', '/sessions/new' %> | <%= link_to 'Sign up', '/users/new', method: :get %><% end -%>
   </div>
 </nav>

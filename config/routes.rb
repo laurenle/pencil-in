@@ -4,7 +4,7 @@ PencilIn::Application.routes.draw do
 
   get 'authorize/new'
 
-  resources :lists
+  resources :lists, :users
 
   root to: 'welcome#index'
   resources :sessions
