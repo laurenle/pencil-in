@@ -1,6 +1,6 @@
 <nav class="nav-banner">
   <h1 id="header"><%= link_to "Pencil In", root_path, method: :get %></h1>
-  <span id="tagline">You can do it!</span>
+  <span id="tagline"> <% if logged_in? -%>Welcome, <%= current_user.name %>.<% end -%> You can do it!</span>
 
   <div id="nav-links">
     <% if logged_in? -%><%= link_to 'My Account', "/users/#{current_user.id}", method: :patch %> | <%= link_to 'Past Lists', lists_url %> | <%= link_to 'Log out', '/logout', method: :delete %>
