@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validate :valid_email?, :capitalized?
   has_many :lists, dependent: :destroy
+  before_save :downcase_email
 
   def password
     @password ||= Password.new(password_hash)
@@ -28,5 +29,9 @@ class User < ActiveRecord::Base
       matches = name.strip[0].match(/[A-Z]/)
       errors.add(:base, 'Name must be capitalized.') if matches.to_s.empty?
     end
-  end  
+  end
+
+  def downcase_email
+    self.email.downcase!
+  end
 end
