@@ -7,6 +7,13 @@ gem 'json'
 gem 'sqlite3'
 gem 'google-api-client', '<0.9', :require => 'google/api_client'
 
+# Use ActiveModel has_secure_password
+gem 'bcrypt'
+
+group :development do
+  gem 'pry'
+end
+
 group :assets do
       gem 'sass-rails'
 end
