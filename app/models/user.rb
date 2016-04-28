@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }
   validates :email, uniqueness: true
   validate :valid_email?, :capitalized?
-  has_many :lists, dependent: :destroy
+  has_many :tasks, dependent: :destroy
   before_save :downcase_email
 
   def password
