@@ -8,7 +8,7 @@ PencilIn::Application.routes.draw do
 
   root to: 'welcome#index'
   resources :sessions
-  get "/auth/:provider/callback" => 'sessions#create'
+  get "/auth/:provider/callback" => 'authorize#create'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
