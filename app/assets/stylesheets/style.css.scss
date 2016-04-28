@@ -53,9 +53,15 @@ button {
 #tagline {
   font-size: 1.2rem;
   display: block;
+}
+
+nav {
   padding-bottom: 3em;
   margin-bottom: 3em;
   border-bottom: 1px solid $color-neutral;
 }
 
-@import "list";
+#nav-links {
+  padding: 0.25em 0;
+  font-size: 1.4rem;
+}
