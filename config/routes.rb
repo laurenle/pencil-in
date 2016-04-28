@@ -1,5 +1,9 @@
 # config/routes.rb
 PencilIn::Application.routes.draw do
+  get 'authorize/create'
+
+  get 'authorize/new'
+
   resources :lists
 
   root to: 'welcome#index'
