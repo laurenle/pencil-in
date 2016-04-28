@@ -1,4 +1,7 @@
 <h1>Log In</h1>
+
+<%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
+
 <%= form_tag('/login') do %>
   <%= label_tag :email %>
   <%= text_field_tag 'email' %>
