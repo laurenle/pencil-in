@@ -13,6 +13,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @temp = Task.new
+    @calendar = Calendar.find(params[:calendar_id])
   end
 
   # GET /tasks/1/edit
@@ -21,10 +22,11 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
-    @task = Task.new(task_params)
+    @temp = Task.new(task_params)
+    @temp.start_time = next_avail(@temp.duration, params[:calendar_id])
 
-    if @task.save
-      redirect_to @task, notice: 'Task was successfully created.'
+    if @temp.save
+      redirect_to @temp, notice: 'Task was successfully created.'
     else
       render :new
     end
@@ -59,23 +61,22 @@ class TasksController < ApplicationController
 
   private
 
-    def next_avail(mins, id)
-      cal = Calendar.find(id)
-      for i in 1..cal.size
-        start_time = cal[i - 1][:end]
-        end_time = cal[i][:begin]
-        diff = (end_time - start_time).to_i
-        break if diff <= mins
-      end
+  def next_avail(mins, id)
+    cal = Calendar.find(id)
+    for i in 1..(cal.events.size - 1)
+      diff = cal.events[i].end - cal.events[i - 1].start
+      return cal.events[i].end unless (diff * 24 * 60).to_i < mins
     end
+    nil
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_task
-      @task = Task.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_task
+    @task = Task.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def task_params
-      params.require(:task).permit(:description, :start_time, :duration, :user_id)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def task_params
+    params.require(:task).permit(:description, :start_time, :duration, :user_id)
+  end
 end

@@ -1,10 +1,15 @@
 # config/routes.rb
 PencilIn::Application.routes.draw do
   get 'calendars/create'
-
   get 'calendars/new'
 
-  resources :sessions, :users, :tasks
+  resources :calendars do
+    resources :tasks, shallow: true
+  end
+
+  resources :sessions, :users
+
+  get '/tasks', to: 'tasks#index'
 
   post '/tasks/confirm', to: 'tasks#confirm'
 
