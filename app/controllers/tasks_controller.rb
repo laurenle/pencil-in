@@ -39,6 +39,11 @@ class TasksController < ApplicationController
     end
   end
 
+  # POST /tasks/confirm
+  def confirm
+    redirect_to '/tasks/confirm'
+  end
+
   # DELETE /tasks/1
   def destroy
     @task.destroy
