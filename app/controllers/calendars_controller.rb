@@ -16,7 +16,8 @@ class CalendarsController < ApplicationController
             {
               "id": @auth["info"]["email"]
             }
-          ]
+          ],
+          "timeZone": "EST"
         }),
       :headers => {'Content-Type' => 'application/json'})
     parse_freebusy(result)
@@ -31,7 +32,7 @@ class CalendarsController < ApplicationController
     current_user.calendar ||= Calendar.create(:user_id => current_user.id)
     current_user.calendar.events = []
     current_user.calendar.events << Event.create(:start => DateTime.now,
-      :end => DateTime.now + 5.hours)
+      :end => DateTime.now + 1.hours)
     data = JSON.parse(result.body)
     cal_name, cal_data = data["calendars"].first
     cal_data["busy"].each do |time|

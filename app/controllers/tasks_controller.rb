@@ -66,10 +66,12 @@ class TasksController < ApplicationController
   def add_bedtime(sleep_start, sleep_end)
     date = DateTime.now.beginning_of_day
     6.times do 
-      Event.new(
+      event = Event.create(
         start: date + Time.parse(sleep_start).seconds_since_midnight.seconds,
-        end: date + Time.parse(sleep_end).seconds_since_midnight.seconds)
-      date =+ 1.days
+        end: date + Time.parse(sleep_end).seconds_since_midnight.seconds,
+        calendar_id: current_user.calendar.id)
+      date = (date + 1.days).to_datetime
+      current_user.calendar.events << event
     end
     Task.new()
   end
