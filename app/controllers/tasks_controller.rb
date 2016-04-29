@@ -4,7 +4,7 @@ class TasksController < ApplicationController
 
   # GET /tasks
   def index
-    @tasks = Task.all
+    @tasks = current_user.tasks.sort_by { |obj| obj.start_time }
   end
 
   # GET /tasks/1
