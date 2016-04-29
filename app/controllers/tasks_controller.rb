@@ -17,7 +17,7 @@ class TasksController < ApplicationController
     5.times do
       @temp << Task.new
     end
-    @calendar = Calendar.find(params[:calendar_id])
+    @calendar = current_user.calendar
   end
 
   # GET /tasks/1/edit
@@ -26,7 +26,7 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
-    @calendar = Calendar.find(params[:calendar_id])
+    @calendar = current_user.calendar
 
     params["tasks"].each do |task|
       task_new = Task.new(task_params(task))
@@ -54,6 +54,7 @@ class TasksController < ApplicationController
   private
 
   def next_avail(mins, cal)
+    cal.events.sort! { |a,b| a.start_time <=> b.start_time}
     cal.events.each_with_index do |event, i|
       break unless i < cal.events.size
       return cal.events[i].end unless time_difference_minutes(

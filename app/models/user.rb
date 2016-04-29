@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validate :valid_email?, :capitalized?
   has_many :tasks, dependent: :destroy
+  has_one :calendar, dependent: :destroy
   before_save :downcase_email
 
   def password
