@@ -39,6 +39,17 @@ class CalendarsController < ApplicationController
         DateTime.parse(time["end"]))
       current_user.calendar.events << event if event.save
     end
+    inject_tasks
+  end
+
+  def inject_tasks
+    current_user.tasks.each do |task|
+      current_user.calendar.events << task_to_event(task)
+    end
+  end
+
+  def task_to_event(task)
+    Event.new(start: task.start_time, end: (task.start_time + task.duration.minutes))
   end
 
   def create_event(start_time, end_time)
