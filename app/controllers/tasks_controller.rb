@@ -42,10 +42,10 @@ class TasksController < ApplicationController
   # POST /tasks/confirm
   def confirm
     @temp = Task.new(task_params)
-    @temp.start_time = DateTime.now
+    @temp.start_time = next_avail(@temp.duration, params[:available])
 
-    if @temp.valid?
-      redirect_to authorize_new_path(task_attributes: task_params)
+    if @temp.save?
+      redirect_to @temp
     else
       render :new
     end
@@ -58,6 +58,15 @@ class TasksController < ApplicationController
   end
 
   private
+
+    def next_avail(mins, cal)
+      for i in 1..cal.size
+        start_time = cal[i - 1][:end]
+        end_time = cal[i][:begin]
+        diff = (end_time - start_time).to_i
+        break if diff <= mins
+      end
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_task
