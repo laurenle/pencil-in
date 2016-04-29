@@ -1,3 +1,4 @@
+# User model
 class User < ActiveRecord::Base
   include BCrypt
 
@@ -19,7 +20,7 @@ class User < ActiveRecord::Base
   end
 
   def valid_email?
-    if /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i.match(@email)
+    if (/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/ =~ email).nil?
       errors.add(:base, 'Please enter a valid email address.')
     end
   end
@@ -32,6 +33,6 @@ class User < ActiveRecord::Base
   end
 
   def downcase_email
-    self.email.downcase!
+    email.downcase!
   end
 end
