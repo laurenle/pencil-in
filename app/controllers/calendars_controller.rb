@@ -29,6 +29,8 @@ class CalendarsController < ApplicationController
 
   def parse_freebusy(result)
     @calendar = Calendar.create(:user_id => current_user.id)
+    @calendar.events << Event.create(:start => DateTime.now,
+      :end => DateTime.now + 5.hours)
     data = JSON.parse(result.body)
     cal_name, cal_data = data["calendars"].first
     cal_data["busy"].each do |time|
