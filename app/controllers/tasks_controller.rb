@@ -31,7 +31,10 @@ class TasksController < ApplicationController
     params["tasks"].each do |task|
       task_new = Task.new(task_params(task))
       task_new.start_time = next_avail(task_new.duration, @calendar) unless task_new.duration.nil?
-      @calendar.events << task_to_event(task_new) if task_new.save
+      if task_new.save
+        current_user.tasks << task_new
+        @calendar.events << task_to_event(task_new)
+      end
     end
     redirect_to '/tasks'
   end
@@ -76,11 +79,10 @@ class TasksController < ApplicationController
       date = (date + 1.days).to_datetime
       current_user.calendar.events << event
     end
-    Task.new()
   end
 
   def time_difference_minutes(time1, time2)
-    ((time1 - time2) * 24 * 60).to_i
+    ((time1 - time2) / 1.minute).to_i
   end
 
   def task_to_event(task)
@@ -94,6 +96,6 @@ class TasksController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def task_params(my_params)
-    my_params.permit(:description, :start_time, :duration, :user_id)
+    my_params.permit(:description, :start_time, :duration)
   end
 end

@@ -6,7 +6,6 @@
       <th>Description</th>
       <th>Start time</th>
       <th>Duration</th>
-      <th>User</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,7 +13,7 @@
 <h2>Upcoming</h2>
   <tbody>
     <% current_user.tasks.each do |task| %>
-      <% break if task.start_time < DateTime.now %> 
+      <% next if task.start_time < DateTime.now %> 
       <tr>
         <td><%= task.description %></td>
         <td><%= task.start_time.in_time_zone('Eastern Time (US & Canada)').strftime("%A, %b %d, %I:%M %p ") %></td>
