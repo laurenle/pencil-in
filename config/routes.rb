@@ -11,8 +11,6 @@ PencilIn::Application.routes.draw do
 
   get '/tasks', to: 'tasks#index'
 
-  post '/tasks/confirm', to: 'tasks#confirm'
-
   root to: 'welcome#index'
   get "/auth/:provider/callback" => 'calendars#create'
 

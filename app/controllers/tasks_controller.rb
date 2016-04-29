@@ -26,15 +26,14 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
-    @temp = Task.new(task_params)
     @calendar = Calendar.find(params[:calendar_id])
-    @temp.start_time = next_avail(@temp.duration, @calendar)
 
-    if @temp.save
-      redirect_to @temp, notice: 'Task was successfully created.'
-    else
-      render :new
+    params["tasks"].each do |task|
+      task_new = Task.new(task_params(task))
+      task_new.start_time = next_avail(task_new.duration, @calendar) unless task_new.duration.nil?
+      @calendar.events << task_to_event(task_new) if task_new.save
     end
+    redirect_to '/tasks'
   end
 
   # PATCH/PUT /tasks/1
@@ -43,18 +42,6 @@ class TasksController < ApplicationController
       redirect_to @task, notice: 'Task was successfully updated.'
     else
       render :edit
-    end
-  end
-
-  # POST /tasks/confirm
-  def confirm
-    @temp = Task.new(task_params)
-    @temp.start_time = next_avail(@temp.duration, params[:calendar_id])
-
-    if @temp.save?
-      redirect_to @temp
-    else
-      render :new
     end
   end
 
@@ -77,6 +64,10 @@ class TasksController < ApplicationController
 
   def time_difference_minutes(time1, time2)
     ((time1 - time2) * 24 * 60).to_i
+  end
+
+  def task_to_event(task)
+    Event.new(start: task.start_time, end: (task.start_time + task.duration.minutes))
   end
 
   # Use callbacks to share common setup or constraints between actions.
