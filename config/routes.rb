@@ -6,7 +6,7 @@ PencilIn::Application.routes.draw do
 
   get 'authorize/new'
 
-  resources :sessions, :lists, :users, :tasks
+  resources :sessions, :users, :tasks
 
   post '/tasks/confirm', to: 'tasks#confirm'
 
