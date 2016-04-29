@@ -3,7 +3,6 @@ List up to 5 tasks you need to get done this week.
  They will be prioritized from 1-5.</p>
 
 <%= form_tag tasks_path do %>
-  <% i = 0 %>
   <% @temp.each do |task| %>
     <%= fields_for 'tasks[]', task do |f| %>
       <div class="field">
@@ -21,6 +20,16 @@ List up to 5 tasks you need to get done this week.
       </div>
     <% end %>
   <% end %>
+  <div class="field">
+    <%= "#{i += 1}." %>
+    <%= label_tag :sleep_end, 'What time do you wake up?' %>
+    <%= time_field_tag :sleep_end %>
+  </div>
+  <div class="field">
+    <%= "#{i += 1}." %>
+    <%= label_tag :sleep_start, 'What time do you go to bed?' %>
+    <%= time_field_tag :sleep_start %>
+  </div>
   <div class="actions">
     <%= submit_tag %>
   </div>

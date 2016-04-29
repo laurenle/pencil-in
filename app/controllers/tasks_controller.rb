@@ -27,12 +27,12 @@ class TasksController < ApplicationController
   # POST /tasks
   def create
     @calendar = current_user.calendar
-
     params["tasks"].each do |task|
       task_new = Task.new(task_params(task))
       task_new.start_time = next_avail(task_new.duration, @calendar) unless task_new.duration.nil?
       @calendar.events << task_to_event(task_new) if task_new.save
     end
+    add_bedtime(params[:sleep_start], params[:sleep_end])
     redirect_to '/tasks'
   end
 
@@ -61,6 +61,17 @@ class TasksController < ApplicationController
         sorted[i + 1].start, event.end) < mins
     end
     nil
+  end
+
+  def add_bedtime(sleep_start, sleep_end)
+    date = DateTime.now.beginning_of_day
+    6.times do 
+      Event.new(
+        start: date + sleep_start.seconds_since_midnight.seconds,
+        end: date + sleep_end.seconds_since_midnight.seconds)
+      date =+ 1.days
+    end
+    Task.new()
   end
 
   def time_difference_minutes(time1, time2)
