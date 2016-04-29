@@ -17,7 +17,7 @@
       <% break if task.start_time < DateTime.now %> 
       <tr>
         <td><%= task.description %></td>
-        <td><%= task.start_time.in_time_zone('Eastern Time (US & Canada)') %></td>
+        <td><%= task.start_time.in_time_zone('Eastern Time (US & Canada)').strftime("%A, %b %d, %I:%M ") %></td>
         <td><%= task.duration %> minutes</td>
         <td><%= link_to 'Show', task %></td>
         <td><%= link_to 'Delete', task, method: :delete %></td>
