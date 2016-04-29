@@ -1,29 +1,21 @@
-<%= form_for [@calendar, @temp] do |f| %>
-  <% if @temp.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@temp.errors.count, "error") %> prohibited this task from being saved:</h2>
-
-      <ul>
-      <% @temp.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+<%= form_tag calendar_tasks_path do %>
+  <% @temp.each do |task| %>
+    <%= fields_for 'tasks[]', task do |f| %>
+      <div class="field">
+        <%= f.label :description %><br>
+        <%= f.text_field :description %>
+      </div>
+      <div class="field">
+        <%= f.label :duration, 'Duration (minutes)' %><br>
+        <%= f.number_field :duration %>
+      </div>
+      <div class="field">
+        <%= f.hidden_field :user_id, value: current_user.id %>
+      </div>
+      </div>
+    <% end %>
   <% end %>
-
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :duration, 'Duration (minutes)' %><br>
-    <%= f.number_field :duration %>
-  </div>
-  <div class="field">
-    <%= f.hidden_field :user_id, value: current_user.id %>
-  </div>
-  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag %>
   </div>
 <% end %>

@@ -13,7 +13,10 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @temp = Task.new
+    @temp = []
+    5.times do
+      @temp << Task.new
+    end
     @calendar = Calendar.find(params[:calendar_id])
   end
 
@@ -82,7 +85,7 @@ class TasksController < ApplicationController
   end
 
   # Only allow a trusted parameter "white list" through.
-  def task_params
-    params.require(:task).permit(:description, :start_time, :duration, :user_id)
+  def task_params(my_params)
+    my_params.permit(:description, :start_time, :duration, :user_id)
   end
 end
