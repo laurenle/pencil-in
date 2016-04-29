@@ -42,9 +42,10 @@ class TasksController < ApplicationController
   # POST /tasks/confirm
   def confirm
     @temp = Task.new(task_params)
+    @temp.start_time = DateTime.now
 
     if @temp.valid?
-      redirect_to '/authorize/new'
+      redirect_to authorize_new_path(task_attributes: task_params)
     else
       render :new
     end
@@ -57,6 +58,7 @@ class TasksController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
