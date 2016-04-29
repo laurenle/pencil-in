@@ -2,7 +2,7 @@
 List up to 5 tasks you need to get done this week.
  They will be prioritized from 1-5.</p>
 
-<%= form_tag calendar_tasks_path do %>
+<%= form_tag tasks_path do %>
   <% i = 0 %>
   <% @temp.each do |task| %>
     <%= fields_for 'tasks[]', task do |f| %>

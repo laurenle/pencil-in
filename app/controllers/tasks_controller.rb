@@ -54,11 +54,11 @@ class TasksController < ApplicationController
   private
 
   def next_avail(mins, cal)
-    cal.events.sort! { |a,b| a.start_time <=> b.start_time}
-    cal.events.each_with_index do |event, i|
-      break unless i < cal.events.size
-      return cal.events[i].end unless time_difference_minutes(
-        cal.events[i].end, event.start) < mins
+    sorted = cal.events.sort_by { |obj| obj.start }
+    sorted.each_with_index do |event, i|
+      break unless i + 1 < cal.events.size
+      return event.end unless time_difference_minutes(
+        sorted[i + 1].start, event.end) < mins
     end
     nil
   end
