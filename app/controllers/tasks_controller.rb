@@ -12,7 +12,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @task = Task.new
+    @temp = Task.new
   end
 
   # GET /tasks/1/edit
@@ -41,7 +41,13 @@ class TasksController < ApplicationController
 
   # POST /tasks/confirm
   def confirm
-    redirect_to '/tasks/confirm'
+    @temp = Task.new(task_params)
+
+    if @temp.valid?
+      redirect_to '/authorize/new'
+    else
+      render :new
+    end
   end
 
   # DELETE /tasks/1

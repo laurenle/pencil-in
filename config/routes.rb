@@ -6,16 +6,15 @@ PencilIn::Application.routes.draw do
 
   get 'authorize/new'
 
-  resources :lists, :users
+  resources :sessions, :lists, :users, :tasks
+
+  post '/tasks/confirm', to: 'tasks#confirm'
 
   root to: 'welcome#index'
-  resources :sessions
   get "/auth/:provider/callback" => 'authorize#create'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
-
-  post '/tasks/confirm', to: 'tasks#confirm'
 
 end

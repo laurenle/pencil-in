@@ -1,10 +1,10 @@
-<%= form_for :task, :url => { :action => "confirm" } do |f| %>
-  <% if :task.errors.any? %>
+<%= form_for @temp, :url => { :action => "confirm" } do |f| %>
+  <% if @temp.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(:task.errors.count, "error") %> prohibited this task from being saved:</h2>
+      <h2><%= pluralize(@temp.errors.count, "error") %> prohibited this task from being saved:</h2>
 
       <ul>
-      <% :task.errors.full_messages.each do |message| %>
+      <% @temp.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
