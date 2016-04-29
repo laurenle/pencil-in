@@ -27,12 +27,12 @@ class TasksController < ApplicationController
   # POST /tasks
   def create
     @calendar = current_user.calendar
+    add_bedtime(params[:sleep_start], params[:sleep_end])
     params["tasks"].each do |task|
       task_new = Task.new(task_params(task))
       task_new.start_time = next_avail(task_new.duration, @calendar) unless task_new.duration.nil?
       @calendar.events << task_to_event(task_new) if task_new.save
     end
-    add_bedtime(params[:sleep_start], params[:sleep_end])
     redirect_to '/tasks'
   end
 
