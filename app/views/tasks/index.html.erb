@@ -18,7 +18,7 @@
         <td><%= task.start_time %></td>
         <td><%= task.duration %> minutes</td>
         <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', task_path(task.id), method: :delete %></td>
       </tr>
     <% end %>
   </tbody>
