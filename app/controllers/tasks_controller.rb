@@ -42,7 +42,7 @@ class TasksController < ApplicationController
   # POST /tasks/confirm
   def confirm
     @temp = Task.new(task_params)
-    @temp.start_time = next_avail(@temp.duration, params[:available])
+    @temp.start_time = next_avail(@temp.duration, params[:calendar_id])
 
     if @temp.save?
       redirect_to @temp
@@ -59,7 +59,8 @@ class TasksController < ApplicationController
 
   private
 
-    def next_avail(mins, cal)
+    def next_avail(mins, id)
+      cal = Calendar.find(id)
       for i in 1..cal.size
         start_time = cal[i - 1][:end]
         end_time = cal[i][:begin]
