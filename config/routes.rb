@@ -1,17 +1,15 @@
 # config/routes.rb
 PencilIn::Application.routes.draw do
-  resources :tasks
+  get 'calendars/create'
 
-  get 'authorize/create'
-
-  get 'authorize/new'
+  get 'calendars/new'
 
   resources :sessions, :users, :tasks
 
   post '/tasks/confirm', to: 'tasks#confirm'
 
   root to: 'welcome#index'
-  get "/auth/:provider/callback" => 'authorize#create'
+  get "/auth/:provider/callback" => 'calendars#create'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
