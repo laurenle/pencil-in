@@ -67,8 +67,8 @@ class TasksController < ApplicationController
     date = DateTime.now.beginning_of_day
     6.times do 
       Event.new(
-        start: date + sleep_start.seconds_since_midnight.seconds,
-        end: date + sleep_end.seconds_since_midnight.seconds)
+        start: date + Time.parse(sleep_start).seconds_since_midnight.seconds,
+        end: date + Time.parse(sleep_end).seconds_since_midnight.seconds)
       date =+ 1.days
     end
     Task.new()
