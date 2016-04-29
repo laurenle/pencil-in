@@ -28,13 +28,20 @@ class AuthorizeController < ApplicationController
   private 
 
   def parse_freebusy(result)
-    @available = []
+    @calendar = Calendar.create(:user_id => current_user.id)
     data = JSON.parse(result.body)
     data["calendars"].each do |key, value|
       value["busy"].each do |time|
-        @available << {:start => DateTime.parse(time["start"]),
-          :end => DateTime.parse(time["end"])}
+        event = create_event(DateTime.parse(time["start"]),
+          DateTime.parse(time["end"]))
+        @calendar.events << event if event.save
       end
     end
+  end
+
+  def create_event(start_time, end_time)
+    event = Event.new(:start => start_time,
+      :end => end_time,
+      :calendar_id => @calendar.id)
   end
 end
