@@ -1,3 +1,4 @@
+# Users Controller
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_filter :require_login, only: [:new, :create]

@@ -1,3 +1,4 @@
+# Application controller
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -12,13 +13,11 @@ class ApplicationController < ActionController::Base
     @user ||= User.find(session[:user_id]) if logged_in?
   end
 
-before_filter :require_login
+  before_filter :require_login
 
-private
+  private
 
   def require_login
-    unless current_user
-      redirect_to login_url
-    end
+    redirect_to login_url unless current_user
   end
 end

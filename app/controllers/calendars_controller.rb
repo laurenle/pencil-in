@@ -10,11 +10,11 @@ class CalendarsController < ApplicationController
     result = client.execute(
       :api_method => service.freebusy.query,
       :body => JSON.dump({
-          "timeMin": DateTime.now.to_s,
-          "timeMax": (DateTime.now + 7.days).to_s,
-          "items": [
+          "timeMin" : DateTime.now.to_s,
+          "timeMax" : (DateTime.now + 7.days).to_s,
+          "items" : [
             {
-              "id": @auth["info"]["email"]
+              "id" : @auth["info"]["email"]
             }
           ]
         }),
