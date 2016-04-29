@@ -3,11 +3,7 @@ PencilIn::Application.routes.draw do
   get 'calendars/create'
   get 'calendars/new'
 
-  resources :calendars do
-    resources :tasks, shallow: true
-  end
-
-  resources :sessions, :users
+  resources :sessions, :users, :calendars, :tasks
 
   get '/tasks', to: 'tasks#index'
 
