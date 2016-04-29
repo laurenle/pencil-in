@@ -1,6 +1,6 @@
 # Tasks Controller
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :add_users_task]
 
   # GET /tasks
   def index
@@ -22,6 +22,17 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+  end
+
+  def add_users_task
+    friend = User.find_by email: params[:email]
+    if friend.present?
+      @task.users << friend
+      flash[:success] = "Successfully added user #{friend.email}!"
+    else
+      flash[:failure] = "Error: No record of such email exists."
+    end
+    redirect_to @task
   end
 
   # POST /tasks

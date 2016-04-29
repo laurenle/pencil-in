@@ -16,8 +16,16 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @task.user_id %>
+  <strong>Add a friend:</strong>
+  <%= form_tag add_users_task_path do %>
+    <div class="field">
+      <%= label_tag :email, 'Email' %>
+      <%= text_field_tag :email %>
+    </div>
+    <div class="actions">
+      <%= submit_tag 'Add friend' %>
+    </div>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |

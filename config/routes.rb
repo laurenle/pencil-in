@@ -5,6 +5,7 @@ PencilIn::Application.routes.draw do
 
   resources :sessions, :users, :calendars, :tasks
 
+  post '/tasks/:id/users', to: 'tasks#add_users_task', as: 'add_users_task'
   get '/tasks', to: 'tasks#index'
 
   root to: 'welcome#index'
