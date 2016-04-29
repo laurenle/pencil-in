@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       render :new
     else
       session[:user_id] = @user.id
-      redirect_to @user
+      redirect_to tasks_path
     end
   end
 

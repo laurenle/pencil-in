@@ -1,3 +1,7 @@
 Welcome to Pencil In!
 
-<p><%= link_to "Start by signing in with Google", "/calendars/new", method: :get %></p>
+<% if current_user %>
+  <p><%= link_to "Start by signing in with Google", "/calendars/new", method: :get %></p>
+<% else %>
+  <p>Sign up today, and get organized!</p>
+<% end %>
