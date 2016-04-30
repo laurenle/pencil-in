@@ -5,6 +5,7 @@ gem 'omniauth', '~> 1.2.2'
 gem 'omniauth-google-oauth2'
 gem 'jquery-rails', "~> 2.3.0"
 gem 'json'
+gem 'turbolinks'
 gem 'pg'
 gem 'google-api-client', '<0.9', :require => 'google/api_client'
 
