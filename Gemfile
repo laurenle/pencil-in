@@ -10,6 +10,8 @@ gem 'google-api-client', '<0.9', :require => 'google/api_client'
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
 
+gem 'cowsay'
+
 group :development do
   gem 'pry'
 end
